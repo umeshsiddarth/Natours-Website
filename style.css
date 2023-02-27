@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /*  We are changing this for easier conversion to rem */
+    font-size: 10px;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    /* font-size: 16px; */
+    font-size: 1.6rem;
+    line-height: 1.7;
+    color: #777;
+    padding: 3rem;
+}
+
+.header {
+    height: 95vh;
+    /* We can use color as well as an image using bg-image.*/
+    /* ! The order matters*/
+    background-image: linear-gradient(to right bottom, #7ed56fc0, #28b485b0),
+        url(img/hero.jpg);
+    background-size: cover;
+    /* Whatever the width is, it will try to fit the image within the box*/
+    background-position: center;
+    /* The specified position will be fixed and it will not be cropped when the screensize changes*/
+    /* h1 Clip path */
+    /* * starts from top left corner and moves in clockwise direction */
+    /* syntax clip-path: polygon(x y, x y, x y, x y) */
+    /* ! use bennettfeely.com/clippy */
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    /* clip-path: polygon(0 0, 100% 50%, 0 100%) -  triangle */
+    /* ! This will help the logo-box positioning by acting as a parent element */
+    position: relative;
+
+}
+
+.logo-box {
+    position: absolute;
+    top: 4rem;
+    /* The 40px is counted from its parent element (header) before converted to rem*/
+    left: 4rem;
+}
+
+.logo {
+    height: 3.5rem;
+}
+
+.text-box {
+    position: absolute;
+    /* top and left are related to the parent element */
+    top: 40%; 
+    left: 50%;
+    /* This is not related to the parent element. This translation happens w.r.to the element itself */
+    transform: translate(-50%,-50%);
+    /* This code is related to button. As it is inline-block element it acts like text, so we can just align. */
+    text-align: center;
+}
+
+.heading-primary {
+    color: #fff;
+    text-transform: uppercase;
+    /* ! Backface visibilty will avoid the shakiness during animation */
+    backface-visibility: hidden;
+    margin-bottom: 6rem;
+}
+
+.heading-primary-main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    animation-name: moveInLeft;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+}
+
+.heading-primary-sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 17.5px;
+    animation: moveInRight 2s ease-in-out;
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+
+    80% {
+        transform: translateX(2rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0)
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+
+    80% {
+        transform: translateX(-2rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0)
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(10rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5rem;
+    /* Transition property should be defined in the initial state. The below property will help in animations while hovering and clicking */
+    transition: all .5s; 
+    /* transition: properties to animate | animation time */
+    position: relative;
+    
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
+    /* box-shadow: X Y Blur color */
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777;
+    padding: 1.5rem 4rem;
+}
+
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 5rem;
+    /* ! To make them go behind the button the following code is used */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* To make it go behind use z-index */
+    z-index: -1;
+    /* ! The transition property for animations should be declared in the intial state. This element is the initial state for .btn:hover::after */
+    transition: all .8s;
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+.btn-animated {
+    animation: moveInBottom 1s ease-out 1s; /* name duration effect delay*/
+    /* ! Because of the delay the button will be visible and then the animation will start. To avoid this we can use animation-fill-mode */
+    animation-fill-mode: backwards; /*This will automatically add the animation at 0% before the animation starts*/
+}
