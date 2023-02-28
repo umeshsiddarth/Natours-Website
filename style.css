@@ -1,12 +1,17 @@
-* {
+*,
+*::after, /* We are adding after and before psuedo elements to inherit these properties to avoid strange behaviours */
+*::before {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    /* This asks each and every property to inherit border-box from body */
+    box-sizing: inherit;
 }
 
 html {
     /*  We are changing this for easier conversion to rem */
-    font-size: 10px;
+    /* font-size: 10px; */
+    /* We use percentage to avoid user declaration issues */
+    font-size: 62.5%
 }
 
 body {
@@ -17,6 +22,8 @@ body {
     line-height: 1.7;
     color: #777;
     padding: 3rem;
+
+    box-sizing: border-box;
 }
 
 .header {
@@ -40,18 +47,18 @@ body {
 
 }
 
-.logo-box {
+.header__logo-box {
     position: absolute;
     top: 4rem;
     /* The 40px is counted from its parent element (header) before converted to rem*/
     left: 4rem;
 }
 
-.logo {
+.header__logo {
     height: 3.5rem;
 }
 
-.text-box {
+.header__text-box {
     position: absolute;
     /* top and left are related to the parent element */
     top: 40%; 
@@ -70,7 +77,7 @@ body {
     margin-bottom: 6rem;
 }
 
-.heading-primary-main {
+.heading-primary--main {
     display: block;
     font-size: 6rem;
     font-weight: 400;
@@ -80,7 +87,7 @@ body {
     animation-timing-function: ease-out;
 }
 
-.heading-primary-sub {
+.heading-primary--sub {
     display: block;
     font-size: 2rem;
     font-weight: 700;
@@ -155,7 +162,7 @@ body {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
 }
 
-.btn-white {
+.btn--white {
     background-color: #fff;
     color: #777;
     padding: 1.5rem 4rem;
@@ -177,7 +184,7 @@ body {
     transition: all .8s;
 }
 
-.btn-white::after {
+.btn--white::after {
     background-color: #fff;
 }
 
@@ -186,7 +193,7 @@ body {
     opacity: 0;
 }
 
-.btn-animated {
+.btn--animated {
     animation: moveInBottom 1s ease-out 1s; /* name duration effect delay*/
     /* ! Because of the delay the button will be visible and then the animation will start. To avoid this we can use animation-fill-mode */
     animation-fill-mode: backwards; /*This will automatically add the animation at 0% before the animation starts*/
